@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Water Supply Reporting</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    body { font-family: Arial; padding: 15px; background:#f5f5f5;}
+    .box { background:white; padding:15px; border-radius:10px;}
+    select, input { margin: 5px 0; padding: 8px; width: 100%;}
+    .row { margin-bottom:10px; border-bottom:1px solid #ddd; padding:5px;}
+    button { padding:12px; background:green; color:white; border:none; width:100%; font-size:16px;}
+  </style>
+</head>
+
+<body>
+<div class="box">
+<h2>Water Supply Reporting</h2>
+
+<label>Date:</label>
+<input type="date" id="date">
+
+<label>Select GP:</label>
+<select id="gp" onchange="loadVillages()">
+  <option value="">--Select GP--</option>
+</select>
+
+<div id="villageSection"></div>
+
+<button onclick="submitForm()">Submit</button>
+</div>
+
+<script>
+
+// 🔴 PASTE YOUR GOOGLE SCRIPT URL HERE
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxRR9kijnoIn4X6RaPSZs5sQxfXW17fE4tfO6MASAGpQGG70Atq-ue1G7CD2C-fz3lz5w/exec";
+
+// ✅ ALL GP + VILLAGES
+const data = {
+"Andali": ["Andali","Badmal","Dulavpur"],
+"Dalki": ["Dalki","Dongabandh","Kendudihi","Rangabira"],
+"Dumerjore": ["Baniguni","Bankibahal","Dumerjor","Kheraposh","Mandaria","Usra"],
+"Jaidega": ["Budhikudar","Dublabeda","Hetposh","Jaidega","Jharbeda","Jharbeda J.B"],
+"Jharbeda": ["Jharbeda","Karichapal","Karmabahal","Riun","Tangarani"],
+"Jhunmur": ["Bartoli","Goppur","Jhunumur","Kadamunda","Pandurisila","Sankuchulu"],
+"Kacharu": ["Bijubandh","Kacharu","Pasara","Rampur","Sandalaki","Sialijore"],
+"Kadobahal": ["Bileigarh","Ghantchhapal","Ghoghar","Kadobahal"],
+"Kalosihiria": ["Dumukisihiria","Kalosihiria","Kandagadha","Luchabahal","San Kalosihiria"],
+"Khukundubahal": ["Chadrihariharpur","Gobira","Hariharpur","Karlabud","Khukundibahal","Lodasara","Ratakhandi"],
+"Kuarmunda": ["Chainpur","Kuarmunda","Teliposh"],
+"Kumjharia": ["Baghiajor","Besarapada","Bhadarpur","Bijabahal","Jhitingira","Kudabeda","Kuinergadha","Kumjharia","Lase","Patuabahal","Raichhapal","Sankarla","Therlibahal"],
+"Majhapada": ["Dandpani","Jaikudar","Kendumunda","Majhapara","Ruthatoli"],
+"Padampur": ["Chandiposh","Jagadispur","Jamunanaki","Lanjiberna","Padampur","Sarandaposh","Sarndamal"],
+"Pratappur": ["Bhalulata","Indrapur","Mugtoli","Pograposh","Pratappur","Sakambahal"],
+"Putrikhaman": ["Bartaghutu","Dumangadiri","Harpali","Lalbiringa","Puturikhaman","Sagabeda","Sukhabandha"],
+"Raiboga": ["Chundatoli","Dholkana","Jhamankera","Raiboga","Simko"],
+"Salangabahal": ["Besalbhadi","Kunmendra","Sahajbahal","Salangabahal"]
+};
+
+// Load GP dropdown
+const gpSelect = document.getElementById("gp");
+for (let gp in data) {
+  let option = document.createElement("option");
+  option.value = gp;
+  option.text = gp;
+  gpSelect.appendChild(option);
+}
+
+// Generate hours and minutes
+function getHours() {
+  let h = "";
+  for (let i = 1; i <= 12; i++) {
+    h += `<option>${i}</option>`;
+  }
+  return h;
+}
+
+function getMinutes() {
+  let m = "";
+  for (let i = 0; i < 60; i++) {
+    let val = i.toString().padStart(2, '0');
+    m += `<option>${val}</option>`;
+  }
+  return m;
+}
+
+// Load villages with AM/PM inputs
+function loadVillages() {
+  const gp = document.getElementById("gp").value;
+  const container = document.getElementById("villageSection");
+  container.innerHTML = "";
+
+  if (!gp) return;
+
+  data[gp].forEach(v => {
+    container.innerHTML += `
+      <div class="row">
+        <b>${v}</b><br>
+
+        Start:
+        <select id="sh_${v}">${getHours()}</select> :
+        <select id="sm_${v}">${getMinutes()}</select>
+        <select id="sap_${v}">
+          <option>AM</option>
+          <option>PM</option>
+        </select>
+
+        <br>
+
+        End:
+        <select id="eh_${v}">${getHours()}</select> :
+        <select id="em_${v}">${getMinutes()}</select>
+        <select id="eap_${v}">
+          <option>AM</option>
+          <option>PM</option>
+        </select>
+      </div>
+    `;
+  });
+}
+
+// Submit data
+function submitForm() {
+  const date = document.getElementById("date").value;
+  const gp = document.getElementById("gp").value;
+
+  if (!date || !gp) {
+    alert("Please fill Date and GP");
+    return;
+  }
+
+  let records = [];
+
+  data[gp].forEach(v => {
+    let sh = document.getElementById(`sh_${v}`).value;
+    let sm = document.getElementById(`sm_${v}`).value;
+    let sap = document.getElementById(`sap_${v}`).value;
+
+    let eh = document.getElementById(`eh_${v}`).value;
+    let em = document.getElementById(`em_${v}`).value;
+    let eap = document.getElementById(`eap_${v}`).value;
+
+    let start = `${sh}:${sm} ${sap}`;
+    let end = `${eh}:${em} ${eap}`;
+
+    // Only submit if at least start entered
+    if (sh && sm) {
+      records.push({
+        date: date,
+        gp: gp,
+        village: v,
+        start: start,
+        end: end
+      });
+    }
+  });
+
+  if (records.length === 0) {
+    alert("Please enter at least one village time");
+    return;
+  }
+
+  fetch(SCRIPT_URL, {
+    method: "POST",
+    body: JSON.stringify(records),
+    headers: {
+      "Content-Type": "application/json"
+    }
+  })
+  .then(() => {
+    alert("Submitted Successfully!");
+    location.reload();
+  })
+  .catch(() => alert("Error submitting data"));
+}
+
+</script>
+</body>
+</html>
