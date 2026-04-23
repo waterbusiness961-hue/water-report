@@ -16,10 +16,8 @@
 <div class="box">
 <h2>Water Supply Reporting</h2>
 
-<label>Date:</label>
 <input type="date" id="date">
 
-<label>Select GP:</label>
 <select id="gp" onchange="loadVillages()">
   <option value="">--Select GP--</option>
 </select>
@@ -31,62 +29,1054 @@
 
 <script>
 
-// 🔴 PASTE YOUR SCRIPT URL HERE
-const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbw0oMi8ZZeL_IULlIHQva4oeJC0o4eYhpGNdt_0mhZVTHKiiAE0RgAKl23enB6Pc8rm/exec";
+// 🔴 PUT YOUR SCRIPT URL
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzGyTlY9V7wZZvfN5-qbGbu9DIjKxdEEubVV0qHULTaUdgHaFTsEY2fAOXPNztM5cM/exec";
 
-// GP + villages
 const data = {
-"Andali": ["Andali","Badmal","Dulavpur"],
-"Dalki": ["Dalki","Dongabandh","Kendudihi","Rangabira"],
-"Dumerjore": ["Baniguni","Bankibahal","Dumerjor","Kheraposh","Mandaria","Usra"],
-"Jaidega": ["Budhikudar","Dublabeda","Hetposh","Jaidega","Jharbeda","Jharbeda J.B"],
-"Jharbeda": ["Jharbeda","Karichapal","Karmabahal","Riun","Tangarani"],
-"Jhunmur": ["Bartoli","Goppur","Jhunumur","Kadamunda","Pandurisila","Sankuchulu"],
-"Kacharu": ["Bijubandh","Kacharu","Pasara","Rampur","Sandalaki","Sialijore"],
-"Kadobahal": ["Bileigarh","Ghantchhapal","Ghoghar","Kadobahal"],
-"Kalosihiria": ["Dumukisihiria","Kalosihiria","Kandagadha","Luchabahal","San Kalosihiria"],
-"Khukundubahal": ["Chadrihariharpur","Gobira","Hariharpur","Karlabud","Khukundibahal","Lodasara","Ratakhandi"],
-"Kuarmunda": ["Chainpur","Kuarmunda","Teliposh"],
-"Kumjharia": ["Baghiajor","Besarapada","Bhadarpur","Bijabahal","Jhitingira","Kudabeda","Kuinergadha","Kumjharia","Lase","Patuabahal","Raichhapal","Sankarla","Therlibahal"],
-"Majhapada": ["Dandpani","Jaikudar","Kendumunda","Majhapara","Ruthatoli"],
-"Padampur": ["Chandiposh","Jagadispur","Jamunanaki","Lanjiberna","Padampur","Sarandaposh","Sarndamal"],
-"Pratappur": ["Bhalulata","Indrapur","Mugtoli","Pograposh","Pratappur","Sakambahal"],
-"Putrikhaman": ["Bartaghutu","Dumangadiri","Harpali","Lalbiringa","Puturikhaman","Sagabeda","Sukhabandha"],
-"Raiboga": ["Chundatoli","Dholkana","Jhamankera","Raiboga","Simko"],
-"Salangabahal": ["Besalbhadi","Kunmendra","Sahajbahal","Salangabahal"]
+  "Andali": {
+    "Andali": [
+      "Andali Jambahal",
+      "Andalibasti",
+      "Dhupdand",
+      "Gandapada",
+      "Girjatola",
+      "Harijantoli",
+      "Kadhi Basti",
+      "Karmatola",
+      "Khadiabasti",
+      "Kurlukhaman",
+      "Laldhipa",
+      "Loharatola",
+      "Missionpada",
+      "New Colony",
+      "Saliatoli",
+      "Sukhbastoli",
+      "Sunajor",
+      "Sunajore Paikopandabasti",
+      "Sunajore Turitola",
+      "Tunguritola"
+    ],
+    "Badmal": [
+      "Attahgat",
+      "Badmal",
+      "Gadatoli",
+      "Gadsatoli",
+      "Garhatoli",
+      "Junentoli",
+      "Kumartoli",
+      "Lembutoli",
+      "Mahalitola",
+      "Mahuatola"
+    ],
+    "Dulavpur": [
+      "Basubeda",
+      "Dhipatoli",
+      "Dulavpur",
+      "Gambharitoli",
+      "Ganjutoli",
+      "Girjatola",
+      "Gomhatoli",
+      "Goudpada",
+      "Harijantoli",
+      "Hetbahal",
+      "Kastatoli",
+      "Khadiatoli",
+      "Nuatol",
+      "Pahadtoli",
+      "Saharaitola",
+      "Tetrabahal"
+    ]
+  },
+  "Dalki": {
+    "Dalki": [
+      "Bahadurpada",
+      "Bhuyanbasti",
+      "Bus Stand",
+      "Dalkicolony",
+      "Dangaghat",
+      "Harijanpada",
+      "Highschoolpada",
+      "Kaltatoli",
+      "Kisanpada",
+      "Mansadpada",
+      "Mugdand",
+      "Mugdand (Bahadurtoli)",
+      "Nuapada",
+      "Sahupada"
+    ],
+    "Dongabandh": [
+      "(Ahirtola)Jhandapahar",
+      "Bagichtola",
+      "Dangabandh",
+      "Ganjutoli",
+      "Girja Toli",
+      "Harijanpada",
+      "Jhandapahad",
+      "Khadiapada",
+      "Lahangapada",
+      "Oramtola",
+      "Pahadtoli"
+    ],
+    "Kendudihi": [
+      "Fatherpada",
+      "Kendudihi",
+      "Khadiabasti",
+      "Missionpada"
+    ],
+    "Rangabira": [
+      "Chengerdand",
+      "Dhaurakhaman",
+      "Mundabasti",
+      "Pahadtoli",
+      "Rangabira"
+    ]
+  },
+  "Dumerjore": {
+    "Baniguni": [
+      "Badaiktola",
+      "Baghiaberni",
+      "Baniguni",
+      "Bhagattola",
+      "Bhatitola",
+      "Kisan Tola",
+      "Mahali Toli"
+    ],
+    "BANKIBAHAL": [
+      "Bankibahal",
+      "Churchtola",
+      "Damatola",
+      "Jangaltola",
+      "Loharatola"
+    ],
+    "Dumerjor": [
+      "Bartola",
+      "Basti",
+      "Bazartola",
+      "Bhagattola",
+      "Dhipatola",
+      "Ganjupada",
+      "Girjatola",
+      "Laldhipa",
+      "Mirdhapada",
+      "Schoolpada",
+      "Uppertola"
+    ],
+    "Kheraposh": [
+      "Kheraposh",
+      "Schooltola"
+    ],
+    "Mandaria": [
+      "Khadiatola",
+      "Mandira",
+      "Oramtola"
+    ],
+    "Usra": [
+      "Belpada",
+      "Brahman Basti",
+      "Colony",
+      "Ghusuramunda",
+      "Girjapada",
+      "Kudarpada",
+      "Kusberna",
+      "Mundabasti",
+      "Oramtola",
+      "Raiberna",
+      "Ramtola",
+      "Tetrabahal",
+      "Ushra Colony"
+    ]
+  },
+  "Jaidega": {
+    "Budhikudar": [
+      "Budhikudar",
+      "Damtoli",
+      "Dhubankanta",
+      "Dhumadega",
+      "Kansbahal",
+      "Malartoli"
+    ],
+    "Dublabeda": [
+      "Dubelbeda",
+      "Tungritola"
+    ],
+    "Hetposh": [
+      "Badulata",
+      "Hetposh"
+    ],
+    "Jaidega": [
+      "Chundatoli",
+      "Girjatola",
+      "Jaidega Colony",
+      "Jharbeda J.B",
+      "Kusumtoli",
+      "Mlatola",
+      "Nawatoli",
+      "Panikamunda",
+      "Panikamunda Girjatola",
+      "Purunapani",
+      "Sawantoli",
+      "Tetertoli"
+    ],
+    "Jharbeda": [
+      "Bhuyanpada",
+      "Churchtola",
+      "Girjatoli",
+      "Lamdatola",
+      "Mundatoli",
+      "Patratola"
+    ]
+  },
+  "Jharbeda": {
+    "Jharbeda": [
+      "Baghiakhandi",
+      "Bartola",
+      "Churchtola",
+      "Ganjupada",
+      "Girjatola",
+      "Kolapada",
+      "Loharapada",
+      "Luhamal",
+      "Pahadtola",
+      "Panikmunda"
+    ],
+    "Karichapal": [
+      "Ganjupada",
+      "Lohangapada",
+      "Mainbasti",
+      "Mangapada",
+      "Pahadtola",
+      "Schooltola",
+      "Tankatola"
+    ],
+    "Karmabahal": [
+      "Ganjitola",
+      "Khadiatola",
+      "Missionpada",
+      "Mundabasti",
+      "Oram Basti",
+      "Patratola",
+      "Schooltola"
+    ],
+    "Riun": [
+      "Brahmantoli",
+      "Harijanpada",
+      "Kisantoli",
+      "Lohratola",
+      "Oramtola",
+      "Pahad Toli",
+      "Prajatoli",
+      "Schooltola"
+    ],
+    "Tangarani": [
+      "Dhipatola",
+      "Gaddhasa",
+      "Ganjutola",
+      "Girjatola",
+      "Oramtola",
+      "Pahadtola",
+      "Schooltola",
+      "Singhtola"
+    ]
+  },
+  "Jhunmur": {
+    "Bartoli": [
+      "Badulatabasti",
+      "Bartoli",
+      "Bhagattoli",
+      "Churchtoli",
+      "Etatoli",
+      "Khadiatoli",
+      "Pahadtoli",
+      "Sadaktoli",
+      "Schoolpada"
+    ],
+    "Goppur": [
+      "Ganjutoli",
+      "Mukhiapada",
+      "Nagratoli",
+      "Nawatol",
+      "Purunatoli",
+      "Samutoli",
+      "Tala Nagratoli"
+    ],
+    "Jhunumur": [
+      "Andhari",
+      "Bairtoli",
+      "Bandhadhipa",
+      "Bangalatola",
+      "Bargatoli",
+      "Buchatola",
+      "Bundeltoli",
+      "Cherutoli",
+      "Danotoli",
+      "Dhaunthapada",
+      "Dikutoli",
+      "Dutetola",
+      "Ganjutoli-2",
+      "Ghusuramunda",
+      "Girjatola",
+      "Hatatoli",
+      "Jhurmur Colony",
+      "Karlabahal",
+      "Kendutoli",
+      "Kharuatoli",
+      "Minzpada",
+      "Oramtoli",
+      "Pahadtoli",
+      "Pranampur",
+      "Rugudiatoli",
+      "Sukrutola",
+      "Tunguritoli"
+    ],
+    "Kadamunda": [
+      "Kadomunda",
+      "Khadiapada",
+      "Schoolpada"
+    ],
+    "Pandurisila": [
+      "Khadanbasti",
+      "Pandersila",
+      "Taltola"
+    ],
+    "Sankuchulu": [
+      "Sankuchulu"
+    ]
+  },
+  "Kacharu": {
+    "Bijubandh": [
+      "Bijubandh",
+      "Oramtola"
+    ],
+    "Kacharu": [
+      "Adivasicolony",
+      "Bazartola",
+      "Bochotoli",
+      "Chataktola",
+      "Daranga Toli",
+      "Ganjutola",
+      "Kulutola",
+      "Lohartola",
+      "Mundabasti",
+      "Pahadtola",
+      "Schooltola",
+      "Tungritola"
+    ],
+    "Pasara": [
+      "Ganjutola",
+      "Khadiatola",
+      "Mundatola",
+      "Oramtola",
+      "Singh Basti"
+    ],
+    "Rampur": [
+      "Bhagattola",
+      "Bihunitola",
+      "Brusavpada",
+      "Ganjutola",
+      "Kamaltola",
+      "Keratola",
+      "Khadiatola",
+      "Pahadtola",
+      "Sadaktola",
+      "Schooltola"
+    ],
+    "Sandalaki": [
+      "Darna Toli",
+      "Dhipa Toli",
+      "Ganju Toli",
+      "Ghuma Toli",
+      "Kacha Toli",
+      "Kidhan Basti",
+      "Munda Basti",
+      "Orampada",
+      "Pahdha Basti",
+      "Sandalki",
+      "Sarna Chowk",
+      "Singh Basti",
+      "Tuntia Bahal"
+    ],
+    "Sialijore": [
+      "Bhandartola",
+      "Ganjutola",
+      "Girjatola",
+      "Jhariatola",
+      "Khadiatola",
+      "Loharatola",
+      "Mainbasti",
+      "Mundatola",
+      "Odratola",
+      "Oramtola",
+      "Pahadtola",
+      "Schooltola",
+      "Tunguritola"
+    ]
+  },
+  "Kadobahal": {
+    "Bileigarh": [
+      "Ambadand",
+      "Bileigarh",
+      "Girjatola",
+      "Jimapada",
+      "Kadamtoli",
+      "Pahadtoli",
+      "Pantola",
+      "Ribapada",
+      "Sukrutoli"
+    ],
+    "Ghantchhapal": [
+      "Dhodibahal Thukudu Basti",
+      "Ghantichhapal",
+      "Girjatoli",
+      "Nagratola",
+      "Nuatola",
+      "Rangiadhipa",
+      "Sahu Basti",
+      "Schooltola"
+    ],
+    "Ghoghar": [
+      "Bhanutola",
+      "Chamantola",
+      "Ganjupada",
+      "Samelpada",
+      "Schoolpada"
+    ],
+    "Kadobahal": [
+      "Baghia Khandi Sahu Basti",
+      "Baghiadand",
+      "Bhadratola",
+      "Bhakttoli",
+      "Biswaspada",
+      "Dhodibahal",
+      "Dukatoli(Near Libnus Shop)",
+      "Gadhatoli",
+      "Gagharischooltola",
+      "Ganju Basti",
+      "Jangaltola",
+      "Jatumastertola",
+      "Mainbasti",
+      "Mangutola",
+      "Marthastola",
+      "Sahu Basti",
+      "Sarnatoli",
+      "Sipritola",
+      "Somra Basti",
+      "Turipada"
+    ]
+  },
+  "Kalosihiria": {
+    "Dumukisihiria": [
+      "Ganjutola",
+      "Girja Basti Dumkisihiria",
+      "Girjatola",
+      "Imiltola",
+      "Khalkotola",
+      "Schooltola",
+      "Tankatola"
+    ],
+    "Kalosihiria": [
+      "Bhimsentola",
+      "Ganjutola",
+      "Girjatola",
+      "Ia Colony",
+      "Khadan Basti (Near Petter House)",
+      "Khadiatola",
+      "Mundatola",
+      "Patratola",
+      "Sadhutola",
+      "Sahu Basti",
+      "Schooltola"
+    ],
+    "Kandagadha": [
+      "Kandagadha"
+    ],
+    "Luchabahal": [
+      "Binjhiatola",
+      "Girjatola",
+      "Luchabahal Girja Basti",
+      "Oramtola",
+      "Punatoli",
+      "Schooltola"
+    ],
+    "San-kalosihiria": [
+      "Kisanbasti",
+      "Sankalosihiria",
+      "Schooltola",
+      "Stationtola",
+      "Tungritola"
+    ]
+  },
+  "Khukundubahal": {
+    "Chadrihariharpur": [
+      "Chandihariharpur",
+      "Kisantola",
+      "Pahadtola"
+    ],
+    "Gobira": [
+      "Bhandartola",
+      "Bhimtola",
+      "Bus Stand",
+      "Ganjutola",
+      "Gibira",
+      "Gobirakhatal",
+      "Lohira Toli",
+      "Old Girjatola"
+    ],
+    "Karlabud": [
+      "Dhipatoli",
+      "Ganjubasti",
+      "Karlabud"
+    ],
+    "Khukundibahal": [
+      "Ganjutola",
+      "Ghasitola",
+      "Kulhutoli",
+      "Kumbhartola",
+      "Nanda Basti",
+      "Patratola",
+      "Samatola"
+    ],
+    "Lodasara": [
+      "Damtola",
+      "Girjatola",
+      "Kisantola",
+      "Munda Toli",
+      "Nh Road Side",
+      "Nuatola",
+      "Patratola"
+    ],
+    "Ratakhandi": [
+      "Bandhtola",
+      "Birutola",
+      "Budhuatola",
+      "Dhipatola",
+      "Girjatola",
+      "Khadiatola",
+      "Mundatola",
+      "Patratoli",
+      "Ranatoli",
+      "Sahutola",
+      "Salangabahal",
+      "Schooltola",
+      "Tala Birutola",
+      "Tankatola",
+      "Turitola"
+    ]
+  },
+  "Kuarmunda": {
+    "Chainpur": [
+      "Chainpur",
+      "Mainbast",
+      "Schoolpada"
+    ],
+    "Kuarmunda": [
+      "Amulpada",
+      "Babupada",
+      "Beldhipa",
+      "Beldhipa Pahartoli",
+      "Bhaludumer",
+      "Bhaludunguri",
+      "Bhati Field",
+      "Block Colony",
+      "Chtiatola",
+      "Dampada",
+      "Gandapada",
+      "Karimdhipa",
+      "Khatal Basti",
+      "Kuarmunda",
+      "Lakhotola",
+      "Matitola",
+      "Mochitola",
+      "Muslimtola",
+      "Naikenbahal",
+      "Near Mahali Samiti",
+      "Patratoli",
+      "Purunabasti",
+      "Sabartola",
+      "Sarberini"
+    ],
+    "Teliposh": [
+      "Bandhatola",
+      "Bhandartola",
+      "Biringatola",
+      "Girjatola",
+      "Ia Colony",
+      "Kendutola",
+      "Khadiatola",
+      "Pahadtola",
+      "Podmara",
+      "Talapada",
+      "Tungritola"
+    ]
+  },
+  "Kumjharia": {
+    "Besarapada": [
+      "Besrapada",
+      "Gagharitola",
+      "Pahadtola",
+      "Schooltoli"
+    ],
+    "Bhadarpur": [
+      "Albert Chowk",
+      "Bandhdhipa",
+      "Bhadarpu",
+      "Bhakattola",
+      "Ganjutola",
+      "Girjatoli",
+      "Khadiatola",
+      "Kuldhipa"
+    ],
+    "Bijabahal": [
+      "Bijabahal",
+      "Brahmantola",
+      "Loharatola",
+      "Near Rampal Chhak",
+      "Schooltola",
+      "Upertola"
+    ],
+    "Jhitikiara": [
+      "Jhitikiara",
+      "Pahadtola",
+      "Satrupadha Basti"
+    ],
+    "Kudabeda": [
+      "Bagichatoli",
+      "Basubiringa",
+      "Bintiatoli",
+      "Fuljamtoli",
+      "Kakerlangar",
+      "Khadiatola",
+      "Kudabeda",
+      "Pahadtola",
+      "Pahal Langar",
+      "Pakerlonger",
+      "Schooltoli"
+    ],
+    "Kuinergadha": [
+      "Basti",
+      "Goudtola",
+      "Kanhergarh",
+      "Majhapada"
+    ],
+    "Kumjharia": [
+      "Chowkidarpada",
+      "Churchpada",
+      "Ganjutola",
+      "Juel Basti",
+      "Kachuabasti",
+      "Kanyasram",
+      "Kumjharia",
+      "Loharatola",
+      "Nuatola",
+      "Surenpada"
+    ],
+    "Lase": [
+      "Girjatola",
+      "Lakhua Tol",
+      "Lase",
+      "Nuatola",
+      "Paulus Basti"
+    ],
+    "Patuabahal": [
+      "Baghiadand",
+      "Bijhatola",
+      "Bridgebasti",
+      "Jamtola",
+      "Singhtola"
+    ],
+    "Raichhapal": [
+      "Bahadurpada",
+      "Bhatitola",
+      "Chowkidartola",
+      "Dhipatola",
+      "Ganjhutoli",
+      "Mahultola",
+      "Sabartoli",
+      "Sarnatola",
+      "Schooltoli",
+      "Tungritola"
+    ],
+    "Sankarla": [
+      "Dhipatola",
+      "Ganjutola",
+      "Khadiatola",
+      "Nuatola"
+    ],
+    "Therlibahal": [
+      "Bhandartola",
+      "Bhatitola",
+      "Mandirtola",
+      "Sambhubasti"
+    ],
+    "Baghiajor": [
+      "Baghiajora",
+      "Dhipatola"
+    ]
+  },
+  "Majhapada": {
+    "Dandpani": [
+      "Ahirpada",
+      "Bhakatoli",
+      "Chikpada",
+      "Girjapada",
+      "Khadiatola",
+      "Kumbhartola",
+      "Lohratoli",
+      "New Bhaktatoli",
+      "Pahadtola",
+      "Schoolpada"
+    ],
+    "Jaikudar": [
+      "Ahiramtoli",
+      "Bantoli",
+      "Biringatoli",
+      "Dhontatoli",
+      "Ganjutoli",
+      "Girjatoli",
+      "Gitiatoli",
+      "Jhilingadera",
+      "Khadiatoli(Pahadtoli)",
+      "Nadidhipa",
+      "Pahadtola",
+      "Panpada",
+      "Patratoli",
+      "Rachakona",
+      "Saliatoli"
+    ],
+    "Kendumunda": [
+      "Ganjutola",
+      "Ganjutoli (Kendumunda)",
+      "Girjatoli",
+      "Kumbhartola",
+      "Pahadtoli",
+      "Pantoli"
+    ],
+    "Majhapara": [
+      "Babajitoli",
+      "Chadratoli",
+      "Dhipatol",
+      "Kailashtola",
+      "Khadiatoli",
+      "Main Basti (W-8)",
+      "Mundatoli",
+      "Nuatoli",
+      "Pasutoli",
+      "Patratoli",
+      "Purunabasti",
+      "Schooltoli"
+    ],
+    "Ruthatoli": [
+      "Badkhand",
+      "Bazartoli",
+      "Bhundutola",
+      "Biringatoli",
+      "Gandapada",
+      "Ganjutoli",
+      "Goudpada",
+      "Kasitola",
+      "Nagutoli",
+      "Patratola",
+      "Patutoli",
+      "Rithatoli"
+    ]
+  },
+  "Padampur": {
+    "Chandiposh": [
+      "Basti",
+      "Chandiposh",
+      "Ganjutoli",
+      "Schooltola"
+    ],
+    "Jagadispur": [
+      "Bhakti Tola",
+      "Ganjutola",
+      "Gardatola",
+      "Jagdishpur",
+      "Khadiatola",
+      "Kisantola",
+      "Oramtola",
+      "Turlyram Basti"
+    ],
+    "Jamunanaki": [
+      "Jamunanaki",
+      "Naditola",
+      "Nh Roadside"
+    ],
+    "Lanjiberna": [
+      "Dhipatoli",
+      "Ganjutola",
+      "Ghantichhapal",
+      "Goudpada",
+      "Gudchhapal",
+      "Kisantola",
+      "Oramtoli",
+      "Schoolpada",
+      "Sialmara",
+      "Tala Dhipatoli"
+    ],
+    "Padampur": [
+      "Ganjutola",
+      "Gourpada",
+      "Keutuniposh",
+      "Khadiatola",
+      "Kisantola",
+      "Lakhatola",
+      "Lakhatola",
+      "Naditola",
+      "Padampur Colony",
+      "Routbasti",
+      "Sahutola"
+    ],
+    "Sarandaposh": [
+      "Ganjutola",
+      "Nuatola",
+      "School Basti",
+      "Tirkey"
+    ],
+    "Sarndamal": [
+      "Bhagattola",
+      "Kisantola",
+      "Mundatola",
+      "Nuatoli",
+      "Pahadtola",
+      "Schoolpada"
+    ]
+  },
+  "Pratappur": {
+    "Bhalulata": [
+      "Baliamohan",
+      "Brahmantola",
+      "Gajakana",
+      "Ganjutola",
+      "Girjapada",
+      "Hetbahal",
+      "Kumbharpada",
+      "Mirdhapada",
+      "Pahadtoli",
+      "Pratappali",
+      "Rangiadhipa"
+    ],
+    "Indrapur": [
+      "Barikpada",
+      "Ganjupada",
+      "Harijanpada",
+      "Indrapur",
+      "Khadiapada",
+      "Old Girjapada",
+      "Ranapada"
+    ],
+    "Mugtoli": [
+      "Bandhatoli",
+      "Mogatoli",
+      "Schooltoli"
+    ],
+    "Pograposh": [
+      "Kullutoli",
+      "Madaktoli",
+      "Mukhiatola",
+      "Mundatoli",
+      "Panchayat Toli",
+      "Pograposh",
+      "Sindhri Toli"
+    ],
+    "Pratappur": [
+      "Barnatola",
+      "Girjatola",
+      "Jhilingadera",
+      "Pratappur"
+    ],
+    "Sakambahal": [
+      "Mainbasti",
+      "Missiontola",
+      "Oramtoli",
+      "Sankarlabahal",
+      "Yeestola"
+    ]
+  },
+  "Putrikhaman": {
+    "Bartaghutu": [
+      "Bagheltola",
+      "Churchtola",
+      "Ganjutola",
+      "Ghasitola",
+      "Lakhuatola",
+      "Loharatola",
+      "Mahultola",
+      "Schooltola",
+      "Tapratola",
+      "Toppno Basti"
+    ],
+    "Dumangadiri": [
+      "Ambatola",
+      "Bhaktatola",
+      "Girjatola",
+      "Jangaltola",
+      "Jhariatola",
+      "Khadiatola",
+      "Lohartola",
+      "Mundatola",
+      "R C Church Basti"
+    ],
+    "Harpali": [
+      "Adkitoli",
+      "Biringatola",
+      "Ganjutola",
+      "Khadiatola",
+      "Membertola",
+      "Nathatola",
+      "Oramtola"
+    ],
+    "Lalbiringa": [
+      "Mainbasti",
+      "Upertola"
+    ],
+    "Puturikhaman": [
+      "Bazartola",
+      "Bhagaritola",
+      "Dangarpani",
+      "Ganjutola",
+      "Girjatola",
+      "Jatetola",
+      "Pahadtola",
+      "Pokharatola",
+      "Rana Basti",
+      "Schooltola",
+      "Thoyatola",
+      "Tulitola"
+    ],
+    "Sagabeda": [
+      "Bartola",
+      "Ganjutola",
+      "Khadiapada",
+      "Oramtola",
+      "Turitola"
+    ],
+    "Sukhabandha": [
+      "Nathatola",
+      "Sukhabandh",
+      "Tungritola"
+    ]
+  },
+  "Raiboga": {
+    "Chundatoli": [
+      "Barlatola",
+      "Chandatoli",
+      "Motipahad"
+    ],
+    "Dholkana": [
+      "Basti",
+      "Dholkana",
+      "Schoolpada"
+    ],
+    "Jhamankera": [
+      "Buchtola",
+      "Churchtoli",
+      "Dhipatoli",
+      "Gandhitoli",
+      "Girjatoli",
+      "Ia Colony",
+      "Jamankera",
+      "Kuatoli",
+      "Mahalitoli",
+      "Mundatoli",
+      "Pokharatola",
+      "Ramanustola",
+      "Schooltoli"
+    ],
+    "Raiboga": [
+      "Bazar",
+      "Bazartoli",
+      "Chanabahal",
+      "Chanabahal Kasitola",
+      "Girjatola",
+      "Gotitangar",
+      "High Schooltola",
+      "Jangaltoli",
+      "Khairbahal",
+      "Khairbahal Colony",
+      "Khairbahal Girjatola",
+      "Kisantola",
+      "Mahuatola",
+      "Nobahal",
+      "Raibaga",
+      "Rangalkani",
+      "Surentoli",
+      "Talipada"
+    ],
+    "Simko": [
+      "Amco Basti",
+      "Amco Goudpada",
+      "Girjapada",
+      "Khadiatoli",
+      "Kisantola",
+      "Mundapada",
+      "Samanttoli",
+      "Simco Basti"
+    ]
+  },
+  "Salangabahal": {
+    "Besalbhadi": [
+      "Bobaimohan",
+      "Girjatola",
+      "Khadiatoli",
+      "Lechotola",
+      "Lohartoli",
+      "Oramtoli",
+      "Schooltoli"
+    ],
+    "Kunmendra": [
+      "Bandhdhipa",
+      "Bartoli",
+      "Bhuyanbasti",
+      "Harijanbasti",
+      "Kisantoli",
+      "Kumbhartoli",
+      "Kunmendra",
+      "Muslimbasti",
+      "Thoyabahal"
+    ],
+    "Sahajbahal": [
+      "Balkotola",
+      "Bhuyantola",
+      "Colony",
+      "Gandatoli",
+      "Girjatola",
+      "Oramtoli",
+      "Schooltola",
+      "Telipada",
+      "Torkobasti"
+    ],
+    "Salangabahal": [
+      "Anandatoli",
+      "Bazartoli",
+      "Bhaskar Basti",
+      "Chaintoli",
+      "Churchtoli",
+      "Dhawai Pada",
+      "Dhipatoli",
+      "Falsatoli",
+      "Gandapada",
+      "Girjatoli",
+      "Khadiatola",
+      "Lakha Tola",
+      "Majhatoli",
+      "Mundatoli-1",
+      "Nagaratoli",
+      "Nuatoli",
+      "Torkotoly",
+      "Turitola"
+    ]
+  }
 };
 
-// Load GP dropdown
+
+// Load GP
 const gpSelect = document.getElementById("gp");
-for (let gp in data) {
-  let option = document.createElement("option");
-  option.value = gp;
-  option.text = gp;
-  gpSelect.appendChild(option);
-}
-
-// Generate time dropdowns
-function getHours() {
-  let h = "";
-  for (let i = 1; i <= 12; i++) h += `<option>${i}</option>`;
-  return h;
-}
-
-function getMinutes() {
-  let m = "";
-  for (let i = 0; i < 60; i++) {
-    let val = i.toString().padStart(2, '0');
-    m += `<option>${val}</option>`;
-  }
-  return m;
-}
-
-// Show/hide time inputs
-function toggleTime(v) {
-  let box = document.getElementById(`time_${v}`);
-  let check = document.getElementById(`check_${v}`);
-  box.style.display = check.checked ? "block" : "none";
-}
+Object.keys(data).forEach(gp => {
+  let opt = document.createElement("option");
+  opt.value = gp;
+  opt.text = gp;
+  gpSelect.appendChild(opt);
+});
 
 // Load villages
 function loadVillages() {
@@ -96,37 +1086,76 @@ function loadVillages() {
 
   if (!gp) return;
 
-  data[gp].forEach(v => {
+  Object.keys(data[gp]).forEach(village => {
     container.innerHTML += `
       <div class="row">
-        <b>${v}</b><br>
         <label>
-          <input type="checkbox" id="check_${v}" onchange="toggleTime('${v}')">
-          Water Supplied
+          <input type="checkbox" onchange="toggleVillage('${village}')">
+          <b>${village}</b>
         </label>
-
-        <div id="time_${v}" style="display:none;">
-          Start:
-          <select id="sh_${v}">${getHours()}</select> :
-          <select id="sm_${v}">${getMinutes()}</select>
-          <select id="sap_${v}">
-            <option>AM</option><option>PM</option>
-          </select>
-          <br>
-          End:
-          <select id="eh_${v}">${getHours()}</select> :
-          <select id="em_${v}">${getMinutes()}</select>
-          <select id="eap_${v}">
-            <option>AM</option><option>PM</option>
-          </select>
-        </div>
+        <div id="hab_${village}" style="display:none; margin-left:15px;"></div>
       </div>
     `;
   });
 }
 
+// Show habitation
+function toggleVillage(village) {
+  const gp = document.getElementById("gp").value;
+  const box = document.getElementById(`hab_${village}`);
+
+  if (box.innerHTML !== "") {
+    box.style.display = "none";
+    box.innerHTML = "";
+    return;
+  }
+
+  box.style.display = "block";
+
+  let html = "";
+
+  data[gp][village].forEach(hab => {
+    html += `
+      <div>
+        <label>
+          <input type="checkbox" onchange="toggleTime('${village}_${hab}')">
+          ${hab}
+        </label>
+
+        <div id="time_${village}_${hab}" style="display:none;">
+          Start:
+          <input type="time" id="start_${village}_${hab}">
+          End:
+          <input type="time" id="end_${village}_${hab}">
+          <br>
+          Photo:
+          <input type="file" id="photo_${village}_${hab}" accept="image/*">
+        </div>
+      </div>
+    `;
+  });
+
+  box.innerHTML = html;
+}
+
+// Show time
+function toggleTime(id) {
+  let box = document.getElementById(`time_${id}`);
+  box.style.display = box.style.display === "none" ? "block" : "none";
+}
+
+// Convert image to base64
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = error => reject(error);
+  });
+}
+
 // Submit
-function submitForm() {
+async function submitForm() {
   const date = document.getElementById("date").value;
   const gp = document.getElementById("gp").value;
 
@@ -137,40 +1166,34 @@ function submitForm() {
 
   let records = [];
 
-  data[gp].forEach(v => {
-    if (document.getElementById(`check_${v}`).checked) {
+  for (let village in data[gp]) {
+    for (let hab of data[gp][village]) {
 
-      let sh = document.getElementById(`sh_${v}`).value;
-      let sm = document.getElementById(`sm_${v}`).value;
-      let sap = document.getElementById(`sap_${v}`).value;
+      let checkbox = document.querySelector(`input[onchange="toggleTime('${village}_${hab}')"]`);
+      if (!checkbox || !checkbox.checked) continue;
 
-      let eh = document.getElementById(`eh_${v}`).value;
-      let em = document.getElementById(`em_${v}`).value;
-      let eap = document.getElementById(`eap_${v}`).value;
+      let start = document.getElementById(`start_${village}_${hab}`).value;
+      let end = document.getElementById(`end_${village}_${hab}`).value;
+      let photoInput = document.getElementById(`photo_${village}_${hab}`);
 
-      let start = `${sh}:${sm} ${sap}`;
-      let end = `${eh}:${em} ${eap}`;
+      if (!start || !end || !photoInput.files[0]) {
+        alert("Fill time & photo for all selected habitations");
+        return;
+      }
+
+      let base64 = await toBase64(photoInput.files[0]);
 
       records.push({
-        date: date,
-        gp: gp,
-        village: v,
-        start: start,
-        end: end
+        date, gp, village, habitation: hab,
+        start, end, image: base64
       });
     }
-  });
-
-  if (records.length === 0) {
-    alert("Select at least one village");
-    return;
   }
 
   fetch(SCRIPT_URL, {
-  method: "POST",
-  body: JSON.stringify(records),
-  mode: "no-cors"
-})
+    method: "POST",
+    body: JSON.stringify(records)
+  })
   .then(() => {
     alert("Submitted Successfully!");
     location.reload();
