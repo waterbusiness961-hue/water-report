@@ -1,19 +1,20 @@
 {
+  "id": "/water-report/",
   "name": "Water Supply Monitoring System",
   "short_name": "WaterApp",
-  "start_url": "./index.html",
+  "start_url": "/water-report/",
+  "scope": "/water-report/",
   "display": "standalone",
-  "scope": "./",
   "background_color": "#ffffff",
   "theme_color": "#0d6efd",
   "icons": [
     {
-      "src": "icon-192.png",
+      "src": "/water-report/icon-192.png",
       "sizes": "192x192",
       "type": "image/png"
     },
     {
-      "src": "icon-512.png",
+      "src": "/water-report/icon-512.png",
       "sizes": "512x512",
       "type": "image/png"
     }
