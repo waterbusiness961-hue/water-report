@@ -1,12 +1,26 @@
+const CACHE_NAME = "water-app-v1";
+const urlsToCache = [
+  "/water-report/",
+  "/water-report/index.html"
+];
+
 self.addEventListener("install", event => {
-  console.log("SW installed");
+  event.waitUntil(
+    caches.open(CACHE_NAME).then(cache => {
+      return cache.addAll(urlsToCache);
+    })
+  );
   self.skipWaiting();
 });
 
 self.addEventListener("activate", event => {
-  console.log("SW activated");
+  event.waitUntil(self.clients.claim());
 });
 
 self.addEventListener("fetch", event => {
-  event.respondWith(fetch(event.request));
+  event.respondWith(
+    caches.match(event.request).then(response => {
+      return response || fetch(event.request);
+    })
+  );
 });
